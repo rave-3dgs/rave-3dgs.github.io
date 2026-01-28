@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <!-- TODO: Replace with your paper title and author names -->
+  <meta name="title" content="RAVE: Rate-Adaptive Visual Encoding for 3D Gaussian Splatting - Hoang-Nhat Tran et al.">
+  <!-- TODO: Write a compelling 150-160 character description of your research -->
+  <meta name="description" content="The first rate-adaptive compression method for 3D Gaussian Splatting">
+  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="keywords" content="3dgs, compression, dynamic rate">
+  <!-- TODO: List all authors -->
+  <meta name="author"
+        content="Hoang-Nhat Tran, Francesco Di Sario, Gabriele Spadaro, Giuseppe Valenzise, Enzo Tartaglione">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <!--  <meta property="og:type" content="article">-->
+  <!--  &lt;!&ndash; TODO: Replace with your institution or lab name &ndash;&gt;-->
+  <!--  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">-->
+  <!--  &lt;!&ndash; TODO: Same as paper title above &ndash;&gt;-->
+  <!--  <meta property="og:title" content="RAVE: Rate-Adaptive Visual Encoding for 3D Gaussian Splatting">-->
+  <!--  &lt;!&ndash; TODO: Same as description above &ndash;&gt;-->
+  <!--  <meta property="og:description" content="The first rate-adaptive compression method for 3D Gaussian Splatting">-->
+  <!--  &lt;!&ndash; TODO: Replace with your actual website URL &ndash;&gt;-->
+  <!--  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">-->
+  <!--  &lt;!&ndash; TODO: Create a 1200x630px preview image and update path &ndash;&gt;-->
+  <!--  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">-->
+  <!--  <meta property="og:image:width" content="1200">-->
+  <!--  <meta property="og:image:height" content="630">-->
+  <!--  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">-->
+  <!--  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">-->
+  <!--  <meta property="article:author" content="FIRST_AUTHOR_NAME">-->
+  <!--  <meta property="article:section" content="Research">-->
+  <!--  <meta property="article:tag" content="KEYWORD1">-->
+  <!--  <meta property="article:tag" content="KEYWORD2">-->
+
+  <!-- Twitter -->
+  <!--  <meta name="twitter:card" content="summary_large_image">-->
+  <!--  &lt;!&ndash; TODO: Replace with your lab/institution Twitter handle &ndash;&gt;-->
+  <!--  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">-->
+  <!--  &lt;!&ndash; TODO: Replace with first author's Twitter handle &ndash;&gt;-->
+  <!--  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">-->
+  <!--  &lt;!&ndash; TODO: Same as paper title above &ndash;&gt;-->
+  <!--  <meta name="twitter:title" content="PAPER_TITLE">-->
+  <!--  &lt;!&ndash; TODO: Same as description above &ndash;&gt;-->
+  <!--  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">-->
+  <!--  &lt;!&ndash; TODO: Same as social preview image above &ndash;&gt;-->
+  <!--  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">-->
+  <!--  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">-->
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="PAPER_TITLE">
+  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
+  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="CONFERENCE_NAME">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- TODO: Replace with your paper title and authors -->
+  <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.svg">
+  <link rel="apple-touch-icon" href="static/images/favicon.svg">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "PAPER_TITLE",
+      "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "FIRST_AUTHOR_NAME",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "INSTITUTION_NAME"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "SECOND_AUTHOR_NAME",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "INSTITUTION_NAME"
+          }
+        }
+      ],
+      "datePublished": "2024-01-01",
+      "publisher": {
+        "@type": "Organization",
+        "name": "CONFERENCE_OR_JOURNAL_NAME"
+      },
+      "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
+      "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+      "keywords": [
+        "KEYWORD1",
+        "KEYWORD2",
+        "KEYWORD3",
+        "machine learning",
+        "computer vision"
+      ],
+      "abstract": "FULL_ABSTRACT_TEXT_HERE",
+      "citation": "BIBTEX_CITATION_HERE",
+      "isAccessibleForFree": true,
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "mainEntity": {
+        "@type": "WebPage",
+        "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "RESEARCH_AREA_1"
+        },
+        {
+          "@type": "Thing",
+          "name": "RESEARCH_AREA_2"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "INSTITUTION_OR_LAB_NAME",
+      "url": "https://YOUR_INSTITUTION_WEBSITE.com",
+      "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+      "sameAs": [
+        "https://twitter.com/YOUR_TWITTER_HANDLE",
+        "https://github.com/YOUR_GITHUB_USERNAME"
+      ]
+    }
+  </script>
+</head>
+
+<body>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- TODO: Replace with your paper title -->
+            <h1 class="title is-1 publication-title">RAVE: Rate-Adaptive Visual Encoding for<br>3D Gaussian
+              Splatting</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: Replace with your paper authors and their personal links -->
+              <span class="author-block">
+                  Hoang-Nhat Tran<sup>*,1</sup>,</span>
+              <span class="author-block">
+                  <a href="https://eidos.di.unito.it/author/francesco-di-sario/"
+                     target="_blank">Francesco Di Sario</a><sup>*,2</sup>,</span>
+              <span class="author-block">
+                  <a href="https://eidos.di.unito.it/author/gabriele-spadaro/" target="_blank">Gabriele Spadaro</a><sup>2,3</sup>,</span>
+              <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=7ftDv4gAAAAJ"
+                     target="_blank">Giuseppe Valenzise</a><sup>1</sup>,</span>
+              <span class="author-block">
+                  <a href="https://enzotarta.github.io/" target="_blank">Enzo Tartaglione</a><sup>3</sup>
+                  </span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <!-- TODO: Replace with your institution and conference/journal info -->
+              <span class="author-affiliation-block"><sup>1</sup>L2S, CNRS, CentraleSupélec, Université Paris-Saclay, France</span><br>
+              <span class="author-affiliation-block"><sup>2</sup>University of Turin, Italy</span><br>
+              <span class="author-affiliation-block"><sup>3</sup>LTCI, Télécom Paris, Institut Polytechnique de Paris, France</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <div class="row justify-content-center align-items-center">
+                <!-- TODO: Change your affiliation logo -->
+                <div class="col-6 col-sm-4 col-md-2 mb-3">
+                  <a href="https://www.universite-paris-saclay.fr/" target="_blank" rel="noopener noreferrer">
+                    <img src="static/images/ups_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                         title="University Paris-Saclay">
+                  </a>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2 mb-3">
+                  <a href="https://www.unito.it/" target="_blank" rel="noopener noreferrer">
+                    <img src="static/images/ut_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                         title="University of Torino">
+                  </a>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2 mb-3">
+                  <a href="https://www.telecom-paris.fr/" target="_blank" rel="noopener noreferrer">
+                    <img src="static/images/tp_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                         title="Télécom Paris">
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><b>ICASSP 2026</b></span>
+              <!-- TODO: Remove this line if no equal contribution -->
+              <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- TODO: Update with your arXiv paper ID -->
+                <span class="link-block">
+                        <a href="https://arxiv.org/pdf/2512.07052.pdf" target="_blank"
+                           class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                        </a>
+                      </span>
+
+                <!-- TODO: Add your supplementary material PDF or remove this section -->
+                <!--                <span class="link-block">-->
+                <!--                    <a href="static/pdfs/supplementary_material.pdf" target="_blank"-->
+                <!--                       class="external-link button is-normal is-rounded is-dark">-->
+                <!--                    <span class="icon">-->
+                <!--                      <i class="fas fa-file-pdf"></i>-->
+                <!--                    </span>-->
+                <!--                    <span>Supplementary</span>-->
+                <!--                  </a>-->
+                <!--                </span>-->
+
+                <!-- TODO: Replace with your GitHub repository URL -->
+                <span class="link-block">
+                    <a href="https://github.com/inspiros/RAVE" target="_blank"
+                       class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                  </span>
+
+                <!-- TODO: Update with your arXiv paper ID -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2512.07052" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                  </a>
+                </span>
+
+                <!-- TODO: Update with your Research Gate paper ID -->
+                <!--                <span class="link-block">-->
+                <!--                  <a href="https://www.researchgate.net/publication/398476683_RAVE_Rate-Adaptive_Visual_Encoding_for_3D_Gaussian_Splatting"-->
+                <!--                     target="_blank"-->
+                <!--                     class="external-link button is-normal is-rounded is-dark">-->
+                <!--                  <span class="icon">-->
+                <!--                    <i class="fab fa-researchgate"></i>-->
+                <!--                  </span>-->
+                <!--                  <span>Research Gate</span>-->
+                <!--                  </a>-->
+                <!--                </span>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Teaser -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!-- TODO: Replace with your teaser video -->
+        <center>
+          <img src="static/images/teaser.png" alt="Continuous rate-distortion curve"
+               class="center-image blend-img-background" style="max-width: 40%;"/>
+        </center>
+        <!-- TODO: Replace with your video description -->
+        <h2 class="subtitle has-text-justified">
+          We present <strong>RAVE</strong>, the first method enabling <em>rate-adaptive visual encoding</em> for 3DGS
+          approaches. Unlike existing methods that require multiple separate training runs, RAVE produces a <em>continuous</em>
+          rate–distortion curve in a single, efficient end-to-end training. This allows seamless adaptation of the
+          bitrate to different constraints without retraining, offering both state-of-the-art quality and practical
+          deployment.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <!-- TODO: Replace with your paper abstract -->
+            <p>
+              Recent advances in neural scene representations have transformed immersive multimedia, with 3D Gaussian
+              Splatting (3DGS) enabling real-time photorealistic rendering. Despite its efficiency, 3DGS suffers from
+              large memory requirements and costly training procedures, motivating efforts toward compression. Existing
+              approaches, however, operate at fixed rates, limiting adaptability to varying bandwidth and device
+              constraints. In this work, we propose a flexible compression scheme for 3DGS that supports interpolation
+              at any rate between predefined bounds. Our method is computationally lightweight, requires no retraining
+              for any rate, and preserves rendering quality across a broad range of operating points. Experiments
+              demonstrate that the approach achieves efficient, high-quality compression while offering dynamic rate
+              control, making it suitable for practical deployment in immersive applications.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+  <!-- Method overview -->
+  <section class="section hero is-small">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content">
+            <h2 class="title is-3">Method Overview: Continuous-Rate 3DGS via Interpolation</h2>
+            <center>
+              <img src="static/images/pipeline.png" alt="Mixed Video-Image Finetuning"
+                   class="center-image blend-img-background"/>
+            </center>
+            <div class="level-set has-text-justified">
+              <p>
+                <!--                Existing 3D Gaussian Splatting compression techniques are generally constrained to fixed-rate operation,-->
+                <!--                meaning that a full retraining procedure to obtain a new model.-->
+                <!--                Instead, we present a flexible compression framework for 3DGS that allows continuous interpolation-->
+                <!--                between compression rates.-->
+                We compute per-anchor gradient scores once and rank Gaussians by importance. For any target rate
+                \( \mathcal{R}_{\text{target}} \), the top-ranked Gaussians are selected to form
+                \( \mathcal{G}_{\text{target}} \), then compressed and decoded to reconstruct the scene. This enables
+                multiple operating points and a continuous rate–distortion curve from a single trained model.
+              </p>
+
+              <h5><strong>Gaussian Selection</strong></h5>
+              <p class="text-justify">
+                Starting from a pre-trained model
+                (<a href="https://github.com/city-super/Scaffold-GS"><b>Scaffold-GS</b></a> in our work),
+                a hierarchy of gradient-based masks is generated to progressively select \( L \) subsets of Gaussians.
+                Formally, the hierarchy is defined as \( \mathcal{G}_l = \bigcup_{i=1}^{l} \mathcal{C}_i \),
+                with \( \mathcal{G}_l \) grouping Gaussians from the lowest rate
+                anchor to \( l \), and \( \mathcal{C}_l \) representing our <em>context</em> comprising Gaussians to be
+                introduced to move from anchor \( l-1 \) to \( l \).
+              </p>
+
+              <p class="text-justify">
+                After building the hierarchy, we perform quantization-aware fine-tuning to optimize \( L \) anchor
+                points consecutively.
+              </p>
+
+              <p class="text-justify">
+                Once fine-tuned, we can interpolate between any anchor pairs \( l \) and \( l + 1 \) by
+                gathering all Gaussians from \( \mathcal{G}_l \) combined with a budget of most important Gaussians
+                within the subset \( \mathcal{C}_{l + 1} \).
+                This importance score is computed by re-estimating the gradient w.r.t. the rendering loss.
+                The number of Gaussians for a specific bitrate \( \mathcal{R}_{\text{target}} \) is
+              </p>
+
+              <p class="text-center">
+                \[
+                \left|\mathcal{G}_{\text{target}}\right| = \left|\mathcal{G}_{l}\right|+
+                \frac{\mathcal{R}_{\text{target}} -
+                \mathcal{R}(\mathcal{G}_l)}{\mathcal{R}(\mathcal{G}_{l+1})-\mathcal{R}(\mathcal{G}_l)}(|\mathcal{G}_{l+1}|
+                - |\mathcal{G}_l|) .
+                \]
+              </p>
+
+              <p class="text-justify">
+                Among the budget \( |\Delta \mathcal{G}| = \left|\mathcal{G}_{\text{target}}\right| -
+                \left|\mathcal{G}_{l}\right| \), we select the Gaussians having the highest gradient from the context \(
+                \mathcal{C}_{l+1} \), assuming it is sorted by gradient:
+              </p>
+
+              <p class="text-center">
+                \[
+                \Delta \mathcal{G} = \bigcup_{i=1}^{ |\Delta \mathcal{G}|}G_i \left|G_i\in \mathcal{C}_{l+1}, \left
+                \lVert\frac{\partial \mathcal{L}}{\partial \theta_i} \right\rVert_2 \geq
+                \left\lVert\frac{\partial \mathcal{L}}{\partial \theta_j} \right\rVert_2 i \in \{1, ...,
+                |\Delta \mathcal{G}|\}, j \in \{|\Delta \mathcal{G}| + 1, ..., |\mathcal{C}_{l+1}|\}
+                \right . ,
+                \]
+              </p>
+
+              <p class="text-justify">
+                where \( \theta \) represents the parameters of the Gaussian, and \( \mathcal{L} = \lambda \mathcal{L}_1
+                + (1 - \lambda) \mathcal{L}_\text{SSIM} \) is the standard rendering loss.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End method overview -->
+
+
+  <!-- Image carousel -->
+  <!--  <section class="hero is-small">-->
+  <!--    <div class="hero-body">-->
+  <!--      <div class="container">-->
+  <!--        <div id="results-carousel" class="carousel results-carousel">-->
+  <!--          <div class="item">-->
+  <!--            &lt;!&ndash; TODO: Replace with your research result images &ndash;&gt;-->
+  <!--            <img src="static/images/carousel1.jpg" alt="First research result visualization"-->
+  <!--                 loading="lazy"/>-->
+  <!--            &lt;!&ndash; TODO: Replace with description of this result &ndash;&gt;-->
+  <!--            <h2 class="subtitle has-text-centered">-->
+  <!--              First image description.-->
+  <!--            </h2>-->
+  <!--          </div>-->
+  <!--          <div class="item">-->
+  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
+  <!--            <img src="static/images/carousel2.jpg" alt="Second research result visualization"-->
+  <!--                 loading="lazy"/>-->
+  <!--            <h2 class="subtitle has-text-centered">-->
+  <!--              Second image description.-->
+  <!--            </h2>-->
+  <!--          </div>-->
+  <!--          <div class="item">-->
+  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
+  <!--            <img src="static/images/carousel3.jpg" alt="Third research result visualization"-->
+  <!--                 loading="lazy"/>-->
+  <!--            <h2 class="subtitle has-text-centered">-->
+  <!--              Third image description.-->
+  <!--            </h2>-->
+  <!--          </div>-->
+  <!--          <div class="item">-->
+  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
+  <!--            <img src="static/images/carousel4.jpg" alt="Fourth research result visualization"-->
+  <!--                 loading="lazy"/>-->
+  <!--            <h2 class="subtitle has-text-centered">-->
+  <!--              Fourth image description.-->
+  <!--            </h2>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </section>-->
+  <!-- End image carousel -->
+
+
+  <!-- Video carousel -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3">Results</h2>
+        <div id="videos-carousel" class="carousel results-carousel">
+          <div class="item item-video1">
+            <video poster="" id="video1" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/bicycle.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Bicycle
+            </h2>
+          </div>
+          <div class="item item-video2">
+            <video poster="" id="video2" controls muted loop height="100" preload="metadata">
+              <source src="static/videos/bonsai.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Bonsai
+            </h2>
+          </div>
+          <div class="item item-video3">
+            <video poster="" id="video3" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/counter.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Counter
+            </h2>
+          </div>
+          <div class="item item-video4">
+            <video poster="" id="video4" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/flowers.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Flowers
+            </h2>
+          </div>
+          <div class="item item-video5">
+            <video poster="" id="video5" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/garden.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Garden
+            </h2>
+          </div>
+          <div class="item item-video6">
+            <video poster="" id="video6" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/kitchen.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Kitchen
+            </h2>
+          </div>
+          <div class="item item-video7">
+            <video poster="" id="video7" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/room.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Room
+            </h2>
+          </div>
+          <div class="item item-video8">
+            <video poster="" id="video8" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/stump.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Stump
+            </h2>
+          </div>
+          <div class="item item-video9">
+            <video poster="" id="video9" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/treehill.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Treehill
+            </h2>
+          </div>
+          <div class="item item-video10">
+            <video poster="" id="video10" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/train.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Train
+            </h2>
+          </div>
+          <div class="item item-video11">
+            <video poster="" id="video11" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/truck.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Truck
+            </h2>
+          </div>
+          <div class="item item-video12">
+            <video poster="" id="video12" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/drjohnson.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              DrJohnson
+            </h2>
+          </div>
+          <div class="item item-video13">
+            <video poster="" id="video13" controls muted loop height="90%" preload="metadata">
+              <source src="static/videos/playroom.mp4" type="video/mp4">
+            </video>
+            <h2 class="subtitle has-text-centered">
+              Playroom
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End video carousel -->
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@misc{tran2025rave,
+  title         = {RAVE: Rate-Adaptive Visual Encoding for 3D Gaussian Splatting},
+  author        = {Hoang-Nhat Tran and Francesco Di Sario and Gabriele Spadaro and Giuseppe Valenzise and Enzo Tartaglione},
+  year          = {2025},
+  eprint        = {2512.07052},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2512.07052},
+}
+</code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a
+                href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic
+              Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io"
+                                                                      target="_blank">Nerfies</a> project
+              page.
+              You are free to borrow the source code of this website, we just ask that you link back to
+              this page in the footer. <br> This website is licensed under a <a rel="license"
+                                                                                href="http://creativecommons.org/licenses/by-sa/4.0/"
+                                                                                target="_blank">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+</html>
