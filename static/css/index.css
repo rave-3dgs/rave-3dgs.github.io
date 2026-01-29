@@ -286,8 +286,67 @@ body {
 .results-carousel video {
   margin: 0;
   border-radius: var(--border-radius);
+  /*width: 100%;*/
+  /*height: auto;*/
+  display: flex;
+  justify-content: center;
+}
+
+/* Image container */
+.results-carousel .flex-container {
+  display: flex;
+  flex-direction: column; /* Stacks items vertically */
+  justify-content: center; /* Centers vertically (along the main axis) */
+  align-items: center;     /* Centers horizontally (along the cross axis) */
+}
+
+.results-carousel .media-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centers the whole media-container horizontally */
+  padding: 0;
+}
+
+.results-carousel .media-container {
+  display: flex;
+  flex-direction: row; /* Stacks items vertically */
+  justify-content: center; /* Centers vertically (along the main axis) */
+  align-items: center; /* Vertically centers the text against the image */
+  gap: 20px;           /* Creates a nice space between image and text */
+}
+
+.results-carousel .side-image {
+  max-width: 100%;     /* Adjust this to change the image size */
+  height: auto;
+  border-radius: 8px; /* Optional: gives nice rounded corners */
+}
+
+.results-carousel .text-block {
+  flex: 1;            /* Tells the text to take up the remaining space */
+  text-align: justify;
+  max-width: 500px;
+}
+
+.results-carousel .image-grid {
+  display: grid;
+  /* Create 3 equal columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  justify-items: center; /* Centers items horizontally in their cells */
+  align-items: center;    /* Centers items vertically in their cells */
+}
+
+.results-carousel .featured {
+  /* Make the first image span from column 1 to column 4 (all 3 slots) */
+  grid-column: 1 / span 3;
+  /* Optional: limit width so it doesn't stretch to fill all 3 columns */
+  max-width: 80%;
+}
+
+.results-carousel .image-grid > img {
   width: 100%;
   height: auto;
+  display: block;
 }
 
 .results-carousel .subtitle {
@@ -781,7 +840,7 @@ a:focus {
 }
 
 .affiliation-logo {
-  max-height: 48px;
+  max-height: 64px;
   opacity: 0.9;
   transition: all 0.25s ease-in-out;
 }
@@ -791,4 +850,3 @@ a:focus {
   opacity: 1;
   transform: scale(1.05);
 }
-

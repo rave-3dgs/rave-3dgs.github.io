@@ -53,12 +53,12 @@
   <!--  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">-->
 
   <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="PAPER_TITLE">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  <!--  <meta name="citation_title" content="PAPER_TITLE">-->
+  <!--  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">-->
+  <!--  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">-->
+  <!--  <meta name="citation_publication_date" content="2024">-->
+  <!--  <meta name="citation_conference_title" content="CONFERENCE_NAME">-->
+  <!--  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">-->
 
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -74,7 +74,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <!-- TODO: Replace with your paper title and authors -->
-  <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
+  <title>RAVE: Rate-Adaptive Visual Encoding for 3D Gaussian Splatting | Project Page</title>
 
   <!-- Favicon and App Icons -->
   <link rel="icon" type="image/x-icon" href="static/images/favicon.svg">
@@ -237,7 +237,8 @@
                 <!-- TODO: Change your affiliation logo -->
                 <div class="col-6 col-sm-4 col-md-2 mb-3">
                   <a href="https://www.universite-paris-saclay.fr/" target="_blank" rel="noopener noreferrer">
-                    <img src="static/images/ups_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                    <img src="static/images/cs_ups_logo.svg" class="img-fluid affiliation-logo"
+                         alt="University of Torino"
                          title="University Paris-Saclay">
                   </a>
                 </div>
@@ -332,12 +333,10 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <!-- TODO: Replace with your teaser video -->
         <center>
           <img src="static/images/teaser.png" alt="Continuous rate-distortion curve"
                class="center-image blend-img-background" style="max-width: 40%;"/>
         </center>
-        <!-- TODO: Replace with your video description -->
         <h2 class="subtitle has-text-justified">
           We present <strong>RAVE</strong>, the first method enabling <em>rate-adaptive visual encoding</em> for 3DGS
           approaches. Unlike existing methods that require multiple separate training runs, RAVE produces a <em>continuous</em>
@@ -357,7 +356,6 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
-            <!-- TODO: Replace with your paper abstract -->
             <p>
               Recent advances in neural scene representations have transformed immersive multimedia, with 3D Gaussian
               Splatting (3DGS) enabling real-time photorealistic rendering. Despite its efficiency, 3DGS suffers from
@@ -401,26 +399,25 @@
 
               <h5><strong>Gaussian Selection</strong></h5>
               <p class="text-justify">
-                Starting from a pre-trained model
-                (<a href="https://github.com/city-super/Scaffold-GS"><b>Scaffold-GS</b></a> in our work),
-                a hierarchy of gradient-based masks is generated to progressively select \( L \) subsets of Gaussians.
-                Formally, the hierarchy is defined as \( \mathcal{G}_l = \bigcup_{i=1}^{l} \mathcal{C}_i \),
+                First, we train a scalable model by inheriting the ideas from levels of detail for 3DGS,
+                <a href="https://arxiv.org/abs/2501.13558" target="_blank">GoDe</a>.
+                Starting from a pre-trained single-rate model
+                (<a href="https://github.com/city-super/Scaffold-GS" target="_blank"><b>Scaffold-GS</b></a> in our
+                work), we divide Gaussians into \( L \) subsets according to a \( L \)-level progressive model.
+                Formally, each level (<em>anchor</em>) is defined as
+                \( \mathcal{G}_l = \bigcup_{i=1}^{l} \mathcal{C}_i \),
                 with \( \mathcal{G}_l \) grouping Gaussians from the lowest rate
                 anchor to \( l \), and \( \mathcal{C}_l \) representing our <em>context</em> comprising Gaussians to be
                 introduced to move from anchor \( l-1 \) to \( l \).
+                We perform quantization-aware fine-tuning to stochastically optimize all these anchor points.
               </p>
 
               <p class="text-justify">
-                After building the hierarchy, we perform quantization-aware fine-tuning to optimize \( L \) anchor
-                points consecutively.
-              </p>
-
-              <p class="text-justify">
-                Once fine-tuned, we can interpolate between any anchor pairs \( l \) and \( l + 1 \) by
+                Then, we can interpolate between any anchor pairs \( l \) and \( l + 1 \) by
                 gathering all Gaussians from \( \mathcal{G}_l \) combined with a budget of most important Gaussians
                 within the subset \( \mathcal{C}_{l + 1} \).
-                This importance score is computed by re-estimating the gradient w.r.t. the rendering loss.
-                The number of Gaussians for a specific bitrate \( \mathcal{R}_{\text{target}} \) is
+                This importance ranking is done by re-estimating the gradient w.r.t. the rendering loss.
+                The number of Gaussians for a desired bitrate \( \mathcal{R}_{\text{target}} \) is:
               </p>
 
               <p class="text-center">
@@ -442,15 +439,20 @@
                 \[
                 \Delta \mathcal{G} = \bigcup_{i=1}^{ |\Delta \mathcal{G}|}G_i \left|G_i\in \mathcal{C}_{l+1}, \left
                 \lVert\frac{\partial \mathcal{L}}{\partial \theta_i} \right\rVert_2 \geq
-                \left\lVert\frac{\partial \mathcal{L}}{\partial \theta_j} \right\rVert_2 i \in \{1, ...,
+                \left\lVert\frac{\partial \mathcal{L}}{\partial \theta_j} \right\rVert_2 \quad \forall i \in \{1, ...,
                 |\Delta \mathcal{G}|\}, j \in \{|\Delta \mathcal{G}| + 1, ..., |\mathcal{C}_{l+1}|\}
                 \right . ,
                 \]
               </p>
 
               <p class="text-justify">
-                where \( \theta \) represents the parameters of the Gaussian, and \( \mathcal{L} = \lambda \mathcal{L}_1
-                + (1 - \lambda) \mathcal{L}_\text{SSIM} \) is the standard rendering loss.
+                where \( \theta \) represents the parameters of the Gaussian, and \( \mathcal{L} =
+                (1 - \lambda) \mathcal{L}_1 + \lambda \mathcal{L}_\text{SSIM} \) is the standard rendering loss.
+              </p>
+
+              <p class="text-justify">
+                Note that our simple interpolation strategy is constrained to the granularity of a single Gaussian,
+                but is compression backend-agnostic and can, in principle, be plugged into any compression pipeline.
               </p>
             </div>
           </div>
@@ -462,47 +464,108 @@
 
 
   <!-- Image carousel -->
-  <!--  <section class="hero is-small">-->
-  <!--    <div class="hero-body">-->
-  <!--      <div class="container">-->
-  <!--        <div id="results-carousel" class="carousel results-carousel">-->
-  <!--          <div class="item">-->
-  <!--            &lt;!&ndash; TODO: Replace with your research result images &ndash;&gt;-->
-  <!--            <img src="static/images/carousel1.jpg" alt="First research result visualization"-->
-  <!--                 loading="lazy"/>-->
-  <!--            &lt;!&ndash; TODO: Replace with description of this result &ndash;&gt;-->
-  <!--            <h2 class="subtitle has-text-centered">-->
-  <!--              First image description.-->
-  <!--            </h2>-->
-  <!--          </div>-->
-  <!--          <div class="item">-->
-  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
-  <!--            <img src="static/images/carousel2.jpg" alt="Second research result visualization"-->
-  <!--                 loading="lazy"/>-->
-  <!--            <h2 class="subtitle has-text-centered">-->
-  <!--              Second image description.-->
-  <!--            </h2>-->
-  <!--          </div>-->
-  <!--          <div class="item">-->
-  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
-  <!--            <img src="static/images/carousel3.jpg" alt="Third research result visualization"-->
-  <!--                 loading="lazy"/>-->
-  <!--            <h2 class="subtitle has-text-centered">-->
-  <!--              Third image description.-->
-  <!--            </h2>-->
-  <!--          </div>-->
-  <!--          <div class="item">-->
-  <!--            &lt;!&ndash; Your image here &ndash;&gt;-->
-  <!--            <img src="static/images/carousel4.jpg" alt="Fourth research result visualization"-->
-  <!--                 loading="lazy"/>-->
-  <!--            <h2 class="subtitle has-text-centered">-->
-  <!--              Fourth image description.-->
-  <!--            </h2>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </section>-->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Results</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item">
+            <div class="image-grid">
+              <img src="static/images/main_legend.svg" alt="Legend" width="80%" class="featured"
+                   loading="lazy"/>
+              <img src="static/images/mipnerf360_psnr_size.svg" alt="PSNR-Size curves on Mip-Nerf 360" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/tandt_psnr_size.svg" alt="PSNR-Size curves on Tanks&Temples" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/db_psnr_size.svg" alt="PSNR-Size curves on Deep Blending" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/mipnerf360_lpips_size.svg" alt="LPIPS-Size curves on Mip-Nerf 360" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/tandt_lpips_size.svg" alt="LPIPS-Size curves on Tanks&Temples" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/db_lpips_size.svg" alt="LPIPS-Size curves on Deep Blending" width="100%"
+                   loading="lazy"/>
+              <h6>Mip-Nerf 360</h6>
+              <h6>Tanks&Temples</h6>
+              <h6>Deep Blending</h6>
+            </div>
+            <h3 class="subtitle has-text-centered">
+              Distortion-Rate comparison of our method (<span style="color: royalblue">blue</span>)
+              against some SOTA methods:
+              <a href="https://arxiv.org/abs/2311.17245" target="_blank">LightGaussian</a>
+              (<span style="color: purple">purple</span>),
+              <a href="https://arxiv.org/abs/2406.17074" target="_blank">Reduced-3DGS</a>
+              (<span style="color: green">green</span>),
+              <a href="https://arxiv.org/abs/2406.01597" target="_blank">RDO</a>
+              (<span style="color: orange">orange</span>),
+              and <a href="https://arxiv.org/pdf/2403.14530" target="_blank">HAC</a>
+              (<span style="color: saddlebrown">brown</span>).
+              Being the only continuous-rate method, our RD curves are indicated by a dense line ┃ instead of
+              dotted line ┆ for other methods.
+            </h3>
+          </div>
+          <div class="item">
+            <div class="image-grid">
+              <img src="static/images/main_legend.svg" alt="Legend" width="80%"
+                   loading="lazy" class="featured"/>
+              <img src="static/images/mipnerf360_psnr_fps.svg" alt="PSNR-FPS curves on Mip-Nerf 360" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/tandt_psnr_fps.svg" alt="PSNR-FPS curves on Tanks&Temples" width="100%"
+                   loading="lazy"/>
+              <img src="static/images/db_psnr_fps.svg" alt="PSNR-FPS curves on Deep Blending" width="100%"
+                   loading="lazy"/>
+              <h6>Mip-Nerf 360</h6>
+              <h6>Tanks&Temples</h6>
+              <h6>Deep Blending</h6>
+            </div>
+            <h3 class="subtitle has-text-centered">
+              FPS comparison of our method against the aforementioned SOTA methods.<br>
+              Note that in Scaffold-GS representations, Gaussians are neural predicted using MLPs before
+              rendering. Hence, Scaffold-based methods (HAC and ours due to the selected backbone)
+              sacrifice significant rendering speed for compression rate.
+            </h3>
+          </div>
+          <div class="item">
+            <div class="flex-container">
+              <img src="static/images/ablation_continuous_strats_room_psnr_size.svg"
+                   alt="Comparison of different continuous strategies" width="40%"
+                   loading="lazy" class="side-image"/>
+            </div>
+            <h3 class="subtitle has-text-centered">
+              Why context-aware pruning?<br>
+              We compare our strategy (<span style="color: royalblue">blue</span>)
+              with a non-local variant (<span style="color: olive">olive</span>),
+              a naïve 50-level training (<span style="color: green">green</span>),
+              and its variant in which the number of levels increases to \( |\mathcal{G}| \)
+              (<span style="color: orange">orange</span>).
+              The red anchor symbols <span style="color: red">⚓</span>︎ indicate the original anchors from which
+              we interpolate from.
+              Due to long-running time, this ablation is only conducted on the <em>room</em> scene.
+            </h3>
+          </div>
+          <div class="item">
+            <div class="flex-container">
+              <img src="static/images/ablation_selection_criteria_legend.svg" alt="Legend" width="60%" class="featured"
+                   loading="lazy"/>
+              <img src="static/images/ablation_selection_criteria_mipnerf360_psnr_size.svg"
+                   alt="Comparison of different Gaussian selection criteria" width="40%"
+                   loading="lazy"/>
+            </div>
+            <h3 class="subtitle has-text-centered">
+              Why ranking Gaussians using gradient?<br>
+              We compare our selection criteria (<span style="color: royalblue">blue</span>)
+              with random selection (<span style="color: orange">orange</span>),
+              neural opacity-based ranking (<span style="color: purple">purple</span>),
+              neural size-based ranking (both bottom-up\( \nearrow \) <span style="color: green">green</span>
+              and top-down\( \searrow \) <span style="color: lawngreen">lime</span>, in which top smallest & largest
+              Gaussians are selected, respectively)
+              on the <em>Mip-Nerf 360</em> dataset.
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- End image carousel -->
 
 
@@ -510,7 +573,7 @@
   <section class="hero is-small">
     <div class="hero-body">
       <div class="container is-max-desktop">
-        <h2 class="title is-3">Results</h2>
+        <h2 class="title is-3">Illustrations</h2>
         <div id="videos-carousel" class="carousel results-carousel">
           <div class="item item-video1">
             <video poster="" id="video1" controls muted loop height="90%" preload="metadata">
