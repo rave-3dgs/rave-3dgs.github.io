@@ -10,7 +10,7 @@
   <!-- TODO: Write a compelling 150-160 character description of your research -->
   <meta name="description" content="The first rate-adaptive compression method for 3D Gaussian Splatting">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
-  <meta name="keywords" content="3dgs, compression, dynamic rate">
+  <meta name="keywords" content="3dgs, gaussian splatting, compression, dynamic rate">
   <!-- TODO: List all authors -->
   <meta name="author"
         content="Hoang-Nhat Tran, Francesco Di Sario, Gabriele Spadaro, Giuseppe Valenzise, Enzo Tartaglione">
@@ -83,7 +83,7 @@
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
 
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style"
@@ -113,83 +113,86 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Structured Data for Academic Papers -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ScholarlyArticle",
-      "headline": "PAPER_TITLE",
-      "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
-      "author": [
-        {
-          "@type": "Person",
-          "name": "FIRST_AUTHOR_NAME",
-          "affiliation": {
-            "@type": "Organization",
-            "name": "INSTITUTION_NAME"
-          }
-        },
-        {
-          "@type": "Person",
-          "name": "SECOND_AUTHOR_NAME",
-          "affiliation": {
-            "@type": "Organization",
-            "name": "INSTITUTION_NAME"
-          }
-        }
-      ],
-      "datePublished": "2024-01-01",
-      "publisher": {
-        "@type": "Organization",
-        "name": "CONFERENCE_OR_JOURNAL_NAME"
-      },
-      "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-      "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-      "keywords": [
-        "KEYWORD1",
-        "KEYWORD2",
-        "KEYWORD3",
-        "machine learning",
-        "computer vision"
-      ],
-      "abstract": "FULL_ABSTRACT_TEXT_HERE",
-      "citation": "BIBTEX_CITATION_HERE",
-      "isAccessibleForFree": true,
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "mainEntity": {
-        "@type": "WebPage",
-        "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
-      },
-      "about": [
-        {
-          "@type": "Thing",
-          "name": "RESEARCH_AREA_1"
-        },
-        {
-          "@type": "Thing",
-          "name": "RESEARCH_AREA_2"
-        }
-      ]
-    }
-  </script>
 
-  <!-- Website/Organization Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "INSTITUTION_OR_LAB_NAME",
-      "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-      "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
-      "sameAs": [
-        "https://twitter.com/YOUR_TWITTER_HANDLE",
-        "https://github.com/YOUR_GITHUB_USERNAME"
-      ]
-    }
-  </script>
+  <!-- TODO: Structured Data for Academic Papers -->
+  <!--  <script type="application/ld+json">-->
+  <!--    {-->
+  <!--      "@context": "https://schema.org",-->
+  <!--      "@type": "ScholarlyArticle",-->
+  <!--      "headline": "PAPER_TITLE",-->
+  <!--      "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",-->
+  <!--      "author": [-->
+  <!--        {-->
+  <!--          "@type": "Person",-->
+  <!--          "name": "FIRST_AUTHOR_NAME",-->
+  <!--          "affiliation": {-->
+  <!--            "@type": "Organization",-->
+  <!--            "name": "INSTITUTION_NAME"-->
+  <!--          }-->
+  <!--        },-->
+  <!--        {-->
+  <!--          "@type": "Person",-->
+  <!--          "name": "SECOND_AUTHOR_NAME",-->
+  <!--          "affiliation": {-->
+  <!--            "@type": "Organization",-->
+  <!--            "name": "INSTITUTION_NAME"-->
+  <!--          }-->
+  <!--        }-->
+  <!--      ],-->
+  <!--      "datePublished": "2024-01-01",-->
+  <!--      "publisher": {-->
+  <!--        "@type": "Organization",-->
+  <!--        "name": "CONFERENCE_OR_JOURNAL_NAME"-->
+  <!--      },-->
+  <!--      "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",-->
+  <!--      "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",-->
+  <!--      "keywords": [-->
+  <!--        "KEYWORD1",-->
+  <!--        "KEYWORD2",-->
+  <!--        "KEYWORD3",-->
+  <!--        "machine learning",-->
+  <!--        "computer vision"-->
+  <!--      ],-->
+  <!--      "abstract": "FULL_ABSTRACT_TEXT_HERE",-->
+  <!--      "citation": "BIBTEX_CITATION_HERE",-->
+  <!--      "isAccessibleForFree": true,-->
+  <!--      "license": "https://creativecommons.org/licenses/by/4.0/",-->
+  <!--      "mainEntity": {-->
+  <!--        "@type": "WebPage",-->
+  <!--        "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"-->
+  <!--      },-->
+  <!--      "about": [-->
+  <!--        {-->
+  <!--          "@type": "Thing",-->
+  <!--          "name": "RESEARCH_AREA_1"-->
+  <!--        },-->
+  <!--        {-->
+  <!--          "@type": "Thing",-->
+  <!--          "name": "RESEARCH_AREA_2"-->
+  <!--        }-->
+  <!--      ]-->
+  <!--    }-->
+  <!--  </script>-->
+
+  <!-- TODO: Website/Organization Structured Data -->
+  <!--  <script type="application/ld+json">-->
+  <!--    {-->
+  <!--      "@context": "https://schema.org",-->
+  <!--      "@type": "Organization",-->
+  <!--      "name": "INSTITUTION_OR_LAB_NAME",-->
+  <!--      "url": "https://YOUR_INSTITUTION_WEBSITE.com",-->
+  <!--      "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",-->
+  <!--      "sameAs": [-->
+  <!--        "https://twitter.com/YOUR_TWITTER_HANDLE",-->
+  <!--        "https://github.com/YOUR_GITHUB_USERNAME"-->
+  <!--      ]-->
+  <!--    }-->
+  <!--  </script>-->
 </head>
 
 <body>
@@ -236,21 +239,23 @@
               <div class="row justify-content-center align-items-center">
                 <!-- TODO: Change your affiliation logo -->
                 <div class="col-6 col-sm-4 col-md-2 mb-3">
-                  <a href="https://www.universite-paris-saclay.fr/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.centralesupelec.fr/" target="_blank" rel="noopener noreferrer">
                     <img src="static/images/cs_ups_logo.svg" class="img-fluid affiliation-logo"
-                         alt="University of Torino"
-                         title="University Paris-Saclay">
+                         alt="CentraleSupélec"
+                         title="CentraleSupélec">
                   </a>
                 </div>
                 <div class="col-6 col-sm-4 col-md-2 mb-3">
                   <a href="https://www.unito.it/" target="_blank" rel="noopener noreferrer">
-                    <img src="static/images/ut_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                    <img src="static/images/ut_logo.svg" class="img-fluid affiliation-logo"
+                         alt="Università di Torino"
                          title="University of Torino">
                   </a>
                 </div>
                 <div class="col-6 col-sm-4 col-md-2 mb-3">
                   <a href="https://www.telecom-paris.fr/" target="_blank" rel="noopener noreferrer">
-                    <img src="static/images/tp_logo.svg" class="img-fluid affiliation-logo" alt="University of Torino"
+                    <img src="static/images/tp_logo.svg" class="img-fluid affiliation-logo"
+                         alt="Télécom Paris"
                          title="Télécom Paris">
                   </a>
                 </div>
@@ -333,10 +338,10 @@
   <section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <center>
+        <div style="text-align: center;">
           <img src="static/images/teaser.png" alt="Continuous rate-distortion curve"
-               class="center-image blend-img-background" style="max-width: 40%;"/>
-        </center>
+               class="center-image blend-img-background" style="max-width: 30%;"/>
+        </div>
         <h2 class="subtitle has-text-justified">
           We present <strong>RAVE</strong>, the first method enabling <em>rate-adaptive visual encoding</em> for 3DGS
           approaches. Unlike existing methods that require multiple separate training runs, RAVE produces a <em>continuous</em>
@@ -468,7 +473,7 @@
     <div class="hero-body">
       <div class="container">
         <h2 class="title is-3">Results</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="images-carousel" class="carousel results-carousel static-carousel">
           <div class="item">
             <div class="image-grid">
               <img src="static/images/main_legend.svg" alt="Legend" width="80%" class="featured"
@@ -574,13 +579,28 @@
     <div class="hero-body">
       <div class="container is-max-desktop">
         <h2 class="title is-3">Illustrations</h2>
-        <div id="videos-carousel" class="carousel results-carousel">
+        <div class="btn-carousel-nav buttons is-centered mt-4">
+          <button class="button is-dark is-small is-rounded nav-btn active" data-index="0">Bicycle</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="1">Bonsai</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="2">Counter</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="3">Flowers</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="4">Garden</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="5">Kitchen</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="6">Room</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="7">Stump</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="8">Treehill</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="9">Train</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="10">Truck</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="11">Drjohnson</button>
+          <button class="button is-dark is-small is-rounded nav-btn" data-index="12">Playroom</button>
+        </div>
+        <div id="videos-carousel" class="carousel results-carousel button-controlled-carousel">
           <div class="item item-video1">
             <video poster="" id="video1" controls muted loop height="90%" preload="metadata">
               <source src="static/videos/bicycle.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Bicycle
+              <em>Bicycle</em>
             </h2>
           </div>
           <div class="item item-video2">
@@ -588,7 +608,7 @@
               <source src="static/videos/bonsai.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Bonsai
+              <em>Bonsai</em>
             </h2>
           </div>
           <div class="item item-video3">
@@ -596,7 +616,7 @@
               <source src="static/videos/counter.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Counter
+              <em>Counter</em>
             </h2>
           </div>
           <div class="item item-video4">
@@ -604,7 +624,7 @@
               <source src="static/videos/flowers.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Flowers
+              <em>Flowers</em>
             </h2>
           </div>
           <div class="item item-video5">
@@ -612,7 +632,7 @@
               <source src="static/videos/garden.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Garden
+              <em>Garden</em>
             </h2>
           </div>
           <div class="item item-video6">
@@ -620,7 +640,7 @@
               <source src="static/videos/kitchen.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Kitchen
+              <em>Kitchen</em>
             </h2>
           </div>
           <div class="item item-video7">
@@ -628,7 +648,7 @@
               <source src="static/videos/room.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Room
+              <em>Room</em>
             </h2>
           </div>
           <div class="item item-video8">
@@ -636,7 +656,7 @@
               <source src="static/videos/stump.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Stump
+              <em>Stump</em>
             </h2>
           </div>
           <div class="item item-video9">
@@ -644,7 +664,7 @@
               <source src="static/videos/treehill.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Treehill
+              <em>Treehill</em>
             </h2>
           </div>
           <div class="item item-video10">
@@ -652,7 +672,7 @@
               <source src="static/videos/train.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Train
+              <em>Train</em>
             </h2>
           </div>
           <div class="item item-video11">
@@ -660,7 +680,7 @@
               <source src="static/videos/truck.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Truck
+              <em>Truck</em>
             </h2>
           </div>
           <div class="item item-video12">
@@ -668,7 +688,7 @@
               <source src="static/videos/drjohnson.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              DrJohnson
+              <em>Drjohnson</em>
             </h2>
           </div>
           <div class="item item-video13">
@@ -676,7 +696,7 @@
               <source src="static/videos/playroom.mp4" type="video/mp4">
             </video>
             <h2 class="subtitle has-text-centered">
-              Playroom
+              <em>Playroom</em>
             </h2>
           </div>
         </div>
@@ -695,7 +715,7 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@misc{tran2025rave,
+      <pre id="bibtex-code"><code><span style="color: indianred">@misc</span>{tran2025rave,
   title         = {RAVE: Rate-Adaptive Visual Encoding for 3D Gaussian Splatting},
   author        = {Hoang-Nhat Tran and Francesco Di Sario and Gabriele Spadaro and Giuseppe Valenzise and Enzo Tartaglione},
   year          = {2025},
